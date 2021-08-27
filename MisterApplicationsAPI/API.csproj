@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>MisterApplicationsAPI</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Persistance\Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="RtelConfiguration">
+      <HintPath>..\..\..\..\Users\ldiakakis\Desktop\RtelConfiguration.dll</HintPath>
+    </Reference>
+    <Reference Include="RtelEncryptionLibrary">
+      <HintPath>..\..\..\..\Users\ldiakakis\Desktop\RtelEncryptionLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
