@@ -25,7 +25,7 @@ namespace Persistance.Implementations
         {
             IEnumerable<Floor> res;
 
-            using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
+            using (SqlConnection conn = new(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();                
                 res = await conn.QueryAsync<Floor>(
@@ -40,11 +40,11 @@ namespace Persistance.Implementations
 
         private static string SQLCommand(string version = null)
         {
-            switch (version)
+            return version switch
             {
                 // TODO: change query string to use function
-                default: return "SELECT * FROM FloorsDetails";
-            }
+                _ => "SELECT * FROM FloorsDetails",
+            };
         }
     }
 }

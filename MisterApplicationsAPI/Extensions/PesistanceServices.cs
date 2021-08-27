@@ -16,7 +16,7 @@ namespace API.Extensions
             string enc = RtelConfiguration.GetApplicationConnectionString(20000);
             var x = new RtelEncryption();
             x.DecryptString(ref enc);
-            ConnectionProperties connectionProperties = new ConnectionProperties
+            ConnectionProperties connectionProperties = new()
             {
                 MisterRecordingConnectionString = enc,
                 // TODO: initial Connection TimeOut

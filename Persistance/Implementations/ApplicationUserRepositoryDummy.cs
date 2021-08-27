@@ -6,7 +6,7 @@ namespace Persistance.Implementations
 {
     public class ApplicationUserRepositoryDummy : IApplicationUserRepository
     {
-        private static ApplicationUser applicationUser = new ApplicationUser { Id = 1, Username = "Lefteris", Password = "Test" };
+        private static readonly ApplicationUser applicationUser = new() { Id = 1, Username = "Lefteris", Password = "Test" };
 
         public Task<ApplicationUser> GetByCodeVerifier(string CodeVerifier)
         {

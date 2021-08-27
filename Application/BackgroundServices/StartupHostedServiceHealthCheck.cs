@@ -8,7 +8,10 @@ namespace Application.BackgroundServices
     {
         private volatile bool _startupTaskCompleted = false;
 
-        public string Name => "slow_dependency_check";
+        public static string GetName()
+        {
+            return "slow_dependency_check";
+        }
 
         public bool StartupTaskCompleted
         {
@@ -18,7 +21,7 @@ namespace Application.BackgroundServices
 
         public Task<HealthCheckResult> CheckHealthAsync(
             HealthCheckContext context,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (StartupTaskCompleted)
             {

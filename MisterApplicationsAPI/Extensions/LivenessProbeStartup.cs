@@ -11,8 +11,6 @@ namespace API.Extensions
 {
     public class LivenessProbeStartup
     {
-        private const string HealthCheckServiceAssembly = "Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherHostedService";
-
         public void ConfigureServices(IServiceCollection services)
         {
             #region snippet_ConfigureServices

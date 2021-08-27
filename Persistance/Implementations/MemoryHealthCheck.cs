@@ -18,11 +18,11 @@ namespace Persistance.Implementations
             _options = options;
         }
 
-        public string Name => "memory_check";
+        public static string Name => "memory_check";
 
         public Task<HealthCheckResult> CheckHealthAsync(
             HealthCheckContext context,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             var options = _options.Get(context.Registration.Name);
 

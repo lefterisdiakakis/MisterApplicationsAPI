@@ -13,14 +13,12 @@ namespace Application.Core
         private readonly int _delaySeconds = 15;
         private readonly ILogger _logger;
         private readonly StartupHostedServiceHealthCheck _startupHostedServiceHealthCheck;
-        private readonly IHealthCheck healthCheck;
 
         public StartupHostedService(ILogger<StartupHostedService> logger,
-            StartupHostedServiceHealthCheck startupHostedServiceHealthCheck,IHealthCheck healthCheck)
+            StartupHostedServiceHealthCheck startupHostedServiceHealthCheck)
         {
             _logger = logger;
             _startupHostedServiceHealthCheck = startupHostedServiceHealthCheck;
-            this.healthCheck = healthCheck;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -35,7 +33,7 @@ namespace Application.Core
                 _startupHostedServiceHealthCheck.StartupTaskCompleted = true;
 
                 _logger.LogInformation("Startup Background Service has started.");
-            });
+            }, cancellationToken);
 
             return Task.CompletedTask;
         }

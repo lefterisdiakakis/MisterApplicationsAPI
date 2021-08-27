@@ -1,9 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Core;
 
@@ -18,17 +14,13 @@ namespace API.Controllers
 
         protected ActionResult HandleResult<T>(Result<T> result )
         {
-            switch (result.ResultType)
+            return result.ResultType switch
             {
-                case ResultTypes.NotAuthorize:
-                    return Unauthorized(new  { result.ErrorMessage });
-                case ResultTypes.Error:
-                    return BadRequest(new { result.ErrorMessage });
-                case ResultTypes.Success:
-                    return Ok(result.Value);
-                default:
-                    return Ok(result.Value);
-            }
+                ResultTypes.NotAuthorize => Unauthorized(new { result.ErrorMessage }),
+                ResultTypes.Error => BadRequest(new { result.ErrorMessage }),
+                ResultTypes.Success => Ok(result.Value),
+                _ => Ok(result.Value),
+            };
         }
     }
 }

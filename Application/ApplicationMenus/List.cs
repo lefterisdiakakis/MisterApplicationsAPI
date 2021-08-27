@@ -36,7 +36,7 @@ namespace Application.ApplicationMenus
                 var applicationMenus = await unitOfWork.ApplicationMenu.FindAll(request.UserId, request.AppId, request.Langunage);
                 var rootMenus = applicationMenus.FindAll(x => x.ParentMenuId == null);
 
-                List<ApplicationMenuDto> applicationMenuDtos = new List<ApplicationMenuDto>();
+                List<ApplicationMenuDto> applicationMenuDtos = new();
                 foreach(ApplicationMenu applicationMenu in rootMenus)
                 {
                     applicationMenuDtos.Add(Initiate(applicationMenu, applicationMenus));
@@ -47,7 +47,7 @@ namespace Application.ApplicationMenus
 
             private ApplicationMenuDto Initiate(ApplicationMenu applicationMenu, List<ApplicationMenu> applicationMenus)
             {
-                ApplicationMenuDto applicationMenuDto = new ApplicationMenuDto
+                ApplicationMenuDto applicationMenuDto = new()
                 {
                     Id = applicationMenu.Id,
                     Title = applicationMenu.Title,
