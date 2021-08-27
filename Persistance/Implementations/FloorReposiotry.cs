@@ -28,8 +28,8 @@ namespace Persistance.Implementations
             using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();                
-                res = await conn.QueryAsync<Floor>(FloorRepository.SQLCommand(
-                    _connectionProperties.MisterRecordingDataBaseVersion),
+                res = await conn.QueryAsync<Floor>(
+                    FloorRepository.SQLCommand(_connectionProperties.MisterRecordingDataBaseVersion),
                     commandType: CommandType.Text,
                     commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
                     );
