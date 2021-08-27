@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Domain;
-using Persistance.ConnectionProperties;
+using Persistance;
 using Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,33 +14,37 @@ namespace Persistance.Implementations
 {
     public class CostCenterRepository:ICostCenterRepository
     {
-        private readonly MSSQLConnectionProperties _mSSQLConnectionProperties;
+        private readonly ConnectionProperties _connectionProperties;
 
-        public CostCenterRepository(MSSQLConnectionProperties mSSQLConnectionProperties)
+        public CostCenterRepository(ConnectionProperties connectionProperties)
         {
-            _mSSQLConnectionProperties = mSSQLConnectionProperties;
+            _connectionProperties = connectionProperties;
         }
 
         public async Task<List<CostCenter>> GetAllAsync()
         {
-            var conn = new SqlConnection(_mSSQLConnectionProperties.ConnectionString);
-            List<CostCenter> costCenters = null;
-            try
+            IEnumerable<CostCenter> res;
+
+            using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();
-                var res = await conn.QueryAsync<CostCenter>("SELECT * FROM CostCentersDetails", commandType: CommandType.Text);
-                costCenters = (res != null) ? res.ToList<CostCenter>() : null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
+                res = await conn.QueryAsync<CostCenter>(CostCenterRepository.SQLCommand(
+                    _connectionProperties.MisterRecordingDataBaseVersion),
+                    commandType: CommandType.Text,
+                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    );
             }
 
-            return costCenters;
+            return res.ToList<CostCenter>();
+        }
+
+        private static string SQLCommand(string version = null)
+        {
+            switch (version)
+            {
+                // TODO: change query string to use function
+                default: return "SELECT * FROM CostCentersDetails";
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Domain;
-using Persistance.ConnectionProperties;
+using Persistance;
 using Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,33 +14,37 @@ namespace Persistance.Implementations
 {
     public class SiteRepository:ISiteRepository
     {
-        private readonly MSSQLConnectionProperties _mSSQLConnectionProperties;
+        private readonly ConnectionProperties _connectionProperties;
 
-        public SiteRepository(MSSQLConnectionProperties mSSQLConnectionProperties)
+        public SiteRepository(ConnectionProperties connectionProperties)
         {
-            _mSSQLConnectionProperties = mSSQLConnectionProperties;
+            _connectionProperties = connectionProperties;
         }
 
         public async Task<List<Site>> GetAllAsync()
         {
-            var conn = new SqlConnection(_mSSQLConnectionProperties.ConnectionString);
-            List<Site> floors = null;
-            try
+            IEnumerable<Site> res;
+
+            using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();
-                var res = await conn.QueryAsync<Site>("SELECT * FROM SitesDetails", commandType: CommandType.Text);
-                floors = (res != null) ? res.ToList<Site>() : null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
+                res = await conn.QueryAsync<Site>(SiteRepository.SQLCommand(
+                    _connectionProperties.MisterRecordingDataBaseVersion),
+                    commandType: CommandType.Text,
+                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    );
             }
 
-            return floors;
+            return res.ToList<Site>();
+        }
+
+        private static string SQLCommand(string version = null)
+        {
+            switch (version)
+            {
+                // TODO: change query string to use function
+                default: return "SELECT * FROM SitesDetails";
+            }
         }
     }
 }

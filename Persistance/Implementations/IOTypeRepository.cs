@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Domain;
-using Persistance.ConnectionProperties;
+using Persistance;
 using Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,33 +14,37 @@ namespace Persistance.Implementations
 {
     public class IOTypeRepository : IIOTypeRepository
     {
-        private readonly MSSQLConnectionProperties _mSSQLConnectionProperties;
+        private readonly ConnectionProperties _connectionProperties;
 
-        public IOTypeRepository(MSSQLConnectionProperties mSSQLConnectionProperties)
+        public IOTypeRepository(ConnectionProperties connectionProperties)
         {
-            _mSSQLConnectionProperties = mSSQLConnectionProperties;
+            _connectionProperties = connectionProperties;
         }
 
         public async Task<List<IOType>> GetAllAsync()
         {
-            var conn = new SqlConnection(_mSSQLConnectionProperties.ConnectionString);
-            List<IOType> iOTypes = null;
-            try
+            IEnumerable<IOType> res;
+
+            using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();
-                var res = await conn.QueryAsync<IOType>("SELECT * FROM IOTypesDetails", commandType: CommandType.Text);
-                iOTypes = (res != null) ? res.ToList<IOType>() : null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
+                res = await conn.QueryAsync<IOType>(IOTypeRepository.SQLCommand(
+                    _connectionProperties.MisterRecordingDataBaseVersion),
+                    commandType: CommandType.Text,
+                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    );
             }
 
-            return iOTypes;
+            return res.ToList<IOType>();
+        }
+
+        private static string SQLCommand(string version = null)
+        {
+            switch (version)
+            {
+                // TODO: change query string to use function
+                default: return "SELECT * FROM IOTypesDetails";
+            }
         }
     }
 }

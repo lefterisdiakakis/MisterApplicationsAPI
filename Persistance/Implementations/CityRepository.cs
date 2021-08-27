@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Domain;
-using Persistance.ConnectionProperties;
+using Persistance;
 using Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,33 +14,37 @@ namespace Persistance.Implementations
 {
     public class CityRepository : ICityRepository
     {
-        private readonly MSSQLConnectionProperties _mSSQLConnectionProperties;
+        private readonly ConnectionProperties _connectionProperties;
 
-        public CityRepository(MSSQLConnectionProperties mSSQLConnectionProperties)
+        public CityRepository(ConnectionProperties connectionProperties)
         {
-            _mSSQLConnectionProperties = mSSQLConnectionProperties;
+            _connectionProperties = connectionProperties;
         }
 
         public async Task<List<City>> GetAllAsync()
         {
-            var conn = new SqlConnection(_mSSQLConnectionProperties.ConnectionString);
-            List<City> cities = null;
-            try
+            IEnumerable<City> res;
+
+            using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();
-                var res = await conn.QueryAsync<City>("SELECT * FROM CitiesDetails", commandType: CommandType.Text);
-                cities = (res != null) ? res.ToList<City>() : null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
+                res = await conn.QueryAsync<City>(CityRepository.SQLCommand(
+                    _connectionProperties.MisterRecordingDataBaseVersion),
+                    commandType: CommandType.Text,
+                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    );
             }
 
-            return cities;
+            return res.ToList<City>();
+        }
+
+        private static string SQLCommand(string version = null)
+        {
+            switch (version)
+            {
+                // TODO: change query string to use function
+                default: return "SELECT * FROM CitiesDetails";
+            }
         }
     }
 }

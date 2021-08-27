@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Domain;
-using Persistance.ConnectionProperties;
+using Persistance;
 using Persistance.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,33 +14,37 @@ namespace Persistance.Implementations
 {
     public class DestinationRepository : IDestinationRepository
     {
-        private readonly MSSQLConnectionProperties _mSSQLConnectionProperties;
+        private readonly ConnectionProperties _connectionProperties;
 
-        public DestinationRepository(MSSQLConnectionProperties mSSQLConnectionProperties)
+        public DestinationRepository(ConnectionProperties connectionProperties)
         {
-            _mSSQLConnectionProperties = mSSQLConnectionProperties;
+            _connectionProperties = connectionProperties;
         }
 
         public async Task<List<Destination>> GetAllAsync()
         {
-            var conn = new SqlConnection(_mSSQLConnectionProperties.ConnectionString);
-            List<Destination> destinations = null;
-            try
+            IEnumerable<Destination> res;
+
+            using (SqlConnection conn = new SqlConnection(_connectionProperties.MisterRecordingConnectionString))
             {
                 conn.Open();
-                var res = await conn.QueryAsync<Destination>("SELECT * FROM DestinationsDetails", commandType: CommandType.Text);
-                destinations = (res != null) ? res.ToList<Destination>() : null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
+                res = await conn.QueryAsync<Destination>(DestinationRepository.SQLCommand(
+                    _connectionProperties.MisterRecordingDataBaseVersion),
+                    commandType: CommandType.Text,
+                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    );
             }
 
-            return destinations;
+            return res.ToList<Destination>();
+        }
+
+        private static string SQLCommand(string version = null)
+        {
+            switch (version)
+            {
+                // TODO: change query string to use function
+                default: return "SELECT * FROM DestinationsDetails";
+            }
         }
     }
 }

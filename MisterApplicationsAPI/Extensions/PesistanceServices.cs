@@ -1,14 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance;
-using Persistance.ConnectionProperties;
 using Persistance.Implementations;
 using Persistance.Interfaces;
 using RtelEncryptionLibrary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Extensions
 {
@@ -21,12 +16,15 @@ namespace API.Extensions
             string enc = RtelConfiguration.GetApplicationConnectionString(20000);
             var x = new RtelEncryption();
             x.DecryptString(ref enc);
-            MSSQLConnectionProperties mSSQLConnectionProperties = new MSSQLConnectionProperties
+            ConnectionProperties connectionProperties = new ConnectionProperties
             {
-                ConnectionString = enc
+                MisterRecordingConnectionString = enc,
+                // TODO: initial Connection TimeOut
+                MisterRecordingConnectionTimeOut = 15
             };
 
-            services.AddSingleton(mSSQLConnectionProperties);
+            services.AddSingleton(connectionProperties);
+            // TODO: Remove Dummy class
             services.AddTransient<IApplicationMenuRepository, ApplicationRepositoryDummy>();
             services.AddTransient<IApplicationUserRepository, ApplicationUserRepositoryDummy>();
             services.AddTransient<ICityRepository, CityRepository>();

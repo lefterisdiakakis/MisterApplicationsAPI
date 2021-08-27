@@ -17,10 +17,14 @@
 
   <ItemGroup>
     <Reference Include="RtelConfiguration">
-      <HintPath>..\..\..\..\Users\ldiakakis\Desktop\RtelConfiguration.dll</HintPath>
+      <HintPath>..\..\RtelConfiguration.dll</HintPath>
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
     </Reference>
     <Reference Include="RtelEncryptionLibrary">
-      <HintPath>..\..\..\..\Users\ldiakakis\Desktop\RtelEncryptionLibrary.dll</HintPath>
+      <HintPath>..\..\RtelEncryptionLibrary.dll</HintPath>
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
     </Reference>
   </ItemGroup>
 
