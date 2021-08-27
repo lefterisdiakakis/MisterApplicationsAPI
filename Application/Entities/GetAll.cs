@@ -4,8 +4,6 @@ using MediatR;
 using Persistance;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,7 +27,6 @@ namespace Application.Entities
             public async Task<Result<List<AbstractEntity>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 string entity = request.Entity.ToLower();                
-                // TODO: MIXALI FTIAKSTO
                 switch (entity)
                 {
                     case string x when x.Equals(nameof(City), StringComparison.InvariantCultureIgnoreCase):
@@ -62,8 +59,6 @@ namespace Application.Entities
                     default:
                         throw new NotImplementedException();
                 }
-
-
             }
         }
     }
