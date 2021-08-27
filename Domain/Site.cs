@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Site:AbstractEntity
+    public record Site : AbstractEntity
     {
 
     }

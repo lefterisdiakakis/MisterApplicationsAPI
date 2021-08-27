@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class CostCenter:AbstractEntity
+    public record CostCenter : AbstractEntity
     {
 
     }

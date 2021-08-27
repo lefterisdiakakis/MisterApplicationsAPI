@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public  class AbstractEntity
+    public record AbstractEntity
     {
         public int Id { get; set; }
         public string TitleEN { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Destination:AbstractEntity
+    public record Destination : AbstractEntity
     {
 
     }

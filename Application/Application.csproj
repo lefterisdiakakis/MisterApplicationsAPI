@@ -15,8 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Persistance\Persistance.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistance\Persistance.csproj">
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

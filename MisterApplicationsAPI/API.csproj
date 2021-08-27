@@ -11,8 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Persistance\Persistance.csproj" />
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistance\Persistance.csproj">
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

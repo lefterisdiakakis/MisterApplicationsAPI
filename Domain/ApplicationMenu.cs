@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class ApplicationMenu
+    public record ApplicationMenu
     {
         public int Id { get; set; }
         public string Url { get; set; }

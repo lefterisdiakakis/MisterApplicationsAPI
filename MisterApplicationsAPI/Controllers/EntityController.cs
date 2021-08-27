@@ -18,7 +18,6 @@ namespace API.Controllers
         public async Task<IActionResult> GetEntity(string entity)
         {
             return HandleResult( await Mediator.Send(new GetAll.Query { Entity=entity}));
-
         }
     }
 }
