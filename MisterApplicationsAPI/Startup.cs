@@ -69,6 +69,8 @@ namespace API
             });
 
             services.AddMediatR(typeof(List.Handler).Assembly);
+
+            // TODO: Ti skata einai auta???
             ApplicationProperties applicationProperties = new()
             {
                 JWTKey = "sdsdsdsdfdfrfDedfededefdfedaszded"
