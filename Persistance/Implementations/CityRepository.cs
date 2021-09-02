@@ -1,13 +1,10 @@
 ﻿using Dapper;
 using Domain;
-using Persistance;
 using Persistance.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Persistance.Implementations
@@ -25,13 +22,13 @@ namespace Persistance.Implementations
         {
             IEnumerable<City> res;
 
-            using (SqlConnection conn = new(_connectionProperties.MisterRecordingConnectionString))
+            using (SqlConnection conn = new(_connectionProperties.MisterApplicationsConnectionString))
             {
                 conn.Open();
                 res = await conn.QueryAsync<City>(
-                    CityRepository.SQLCommand(_connectionProperties.MisterRecordingDataBaseVersion),
+                    CityRepository.SQLCommand(_connectionProperties.MisterApplicationsDataBaseVersion),
                     commandType: CommandType.Text,
-                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    commandTimeout: _connectionProperties.MisterApplicationsConnectionTimeOut
                     );
             }
 

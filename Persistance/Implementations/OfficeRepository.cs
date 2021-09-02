@@ -25,13 +25,13 @@ namespace Persistance.Implementations
         {
             IEnumerable<Office> res;
 
-            using (SqlConnection conn = new(_connectionProperties.MisterRecordingConnectionString))
+            using (SqlConnection conn = new(_connectionProperties.MisterApplicationsConnectionString))
             {
                 conn.Open();
                 res = await conn.QueryAsync<Office>(
-                    OfficeRepository.SQLCommand(_connectionProperties.MisterRecordingDataBaseVersion),
+                    OfficeRepository.SQLCommand(_connectionProperties.MisterApplicationsDataBaseVersion),
                     commandType: CommandType.Text,
-                    commandTimeout: _connectionProperties.MisterRecordingConnectionTimeOut
+                    commandTimeout: _connectionProperties.MisterApplicationsConnectionTimeOut
                     );
             }
 

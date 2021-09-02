@@ -18,9 +18,9 @@ namespace API.Extensions
             x.DecryptString(ref enc);
             ConnectionProperties connectionProperties = new()
             {
-                MisterRecordingConnectionString = enc,
+                MisterApplicationsConnectionString = enc,
                 // TODO: initial Connection TimeOut
-                MisterRecordingConnectionTimeOut = 15
+                MisterApplicationsConnectionTimeOut = 15
             };
 
             services.AddSingleton(connectionProperties);

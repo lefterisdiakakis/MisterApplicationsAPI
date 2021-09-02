@@ -1,10 +1,10 @@
 ﻿namespace Persistance
 {
-    public class ConnectionProperties
+    public record ConnectionProperties
     {
         public string MisterApplicationsApiBaseUrl { get; set; }
-        public string MisterRecordingConnectionString { get; set; }
-        public int MisterRecordingConnectionTimeOut { get; set; }
-        public string MisterRecordingDataBaseVersion { get; set; }
+        public string MisterApplicationsConnectionString { get; set; }
+        public int MisterApplicationsConnectionTimeOut { get; set; }
+        public string MisterApplicationsDataBaseVersion { get; set; }
     }
 }
