@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-
+    [Authorize]
     public class UserController : BaseApiController
     {
         [AllowAnonymous]

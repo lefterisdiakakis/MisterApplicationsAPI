@@ -30,7 +30,7 @@ namespace Application.User
                 if (applicationUser == null)
                     return null;
 
-                UserDto userDto = new() { Id = applicationUser.Id, Username = applicationUser.Username, Token = tokenService.CreateToken(applicationUser) };
+                UserDto userDto = new() { Id = applicationUser.ID, Username = applicationUser.Username, Token = tokenService.CreateToken(applicationUser) };
                 return userDto;
             }
         }

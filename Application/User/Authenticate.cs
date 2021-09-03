@@ -35,7 +35,7 @@ namespace Application.User
 
                 var userDto = new UserDto
                 {
-                    Id = applicationUser.Id,
+                    Id = applicationUser.ID,
                     Username = applicationUser.Username,
                     Token = _tokenService.CreateToken(applicationUser)
                 };

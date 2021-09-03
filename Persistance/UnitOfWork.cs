@@ -4,7 +4,7 @@ namespace Persistance
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(IApplicationMenuRepository applicationMenuRepository, IApplicationUserRepository applicationUserRepository,
+        public UnitOfWork(IApplicationMenuRepository applicationMenuRepository, IApplicationUserRepositoryDummy applicationUserRepository,
             ICityRepository cityRepository,ICompanyRepository companyRepository,ICostCenterRepository costCenterRepository,
             IDepartmentRepository departmentRepository,IDestinationRepository destinationRepository,IFloorRepository floorRepository,
             IIOTypeRepository iOTypeRepository,IOfficeRepository officeRepository,ISiteRepository siteRepository)
@@ -23,7 +23,7 @@ namespace Persistance
         }
 
         public IApplicationMenuRepository ApplicationMenu  { get; }
-        public IApplicationUserRepository ApplicationUser { get; }
+        public IApplicationUserRepositoryDummy ApplicationUser { get; }
         public ICityRepository City { get; }
         public ICompanyRepository Company { get; }
         public ICostCenterRepository CostCenter { get; }

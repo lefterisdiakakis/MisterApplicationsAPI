@@ -4,20 +4,21 @@ using System.Threading.Tasks;
 
 namespace Persistance.Implementations
 {
-    public class ApplicationUserRepositoryDummy : IApplicationUserRepository
+    // TODO: Na fugei h Dummy klash kai interface
+    public class ApplicationUserRepositoryDummy : IApplicationUserRepositoryDummy
     {
-        private static readonly ApplicationUser applicationUser = new() { Id = 1, Username = "Lefteris", Password = "Test" };
+        private static readonly ApplicationUser applicationUser = new() { ID = 1, Username = "Lefteris", Password = "Test" };
 
         public Task<ApplicationUser> GetByCodeVerifier(string CodeVerifier)
         {
-            if (applicationUser.Code_Verifier == CodeVerifier)
-            {
-                return Task.FromResult( applicationUser);
-            }
-            else
-            {
+            //if (applicationUser.Code_Verifier == CodeVerifier)
+            //{
+            //    return Task.FromResult(applicationUser);
+            //}
+            //else
+            //{
                 return Task.FromResult((ApplicationUser)null);
-            }
+            //}
         }
 
         public Task<ApplicationUser> GetUserAsync(string Username, string Password)
@@ -27,7 +28,7 @@ namespace Persistance.Implementations
 
         public Task<bool> UpdateUserAsync(ApplicationUser newApplicationUser)
         {
-            applicationUser.Code_Verifier = newApplicationUser.Code_Verifier;
+            //applicationUser.Code_Verifier = newApplicationUser.Code_Verifier;
             return Task.FromResult(true);
         }
     }

@@ -5,7 +5,7 @@ namespace Persistance
     public interface IUnitOfWork
     {
         public IApplicationMenuRepository ApplicationMenu { get; }
-        public IApplicationUserRepository ApplicationUser { get; }
+        public IApplicationUserRepositoryDummy ApplicationUser { get; }
         public ICityRepository City { get; }
         public ICompanyRepository Company { get; }
         public ICostCenterRepository CostCenter { get; }

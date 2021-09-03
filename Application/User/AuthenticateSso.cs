@@ -32,8 +32,8 @@ namespace Application.User
 
                 if (applicationUser == null)
                     return Result<bool>.NotAuthorized("Error username/password");
-
-                applicationUser.Code_Verifier = Code_Challenge;
+                // TODO: Code_Verifier remove it
+                //applicationUser.Code_Verifier = Code_Challenge;
                 await _unitOfWork.ApplicationUser.UpdateUserAsync(applicationUser);
                 return Result<bool>.Success(true);
             }

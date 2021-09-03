@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-
+    [Authorize]
     public class EntityController : BaseApiController
-    {
-        [Authorize]
+    {        
         [HttpGet("{entity}")]
         public async Task<IActionResult> GetEntity(string entity)
         {

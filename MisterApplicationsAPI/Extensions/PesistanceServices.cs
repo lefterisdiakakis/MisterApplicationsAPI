@@ -26,7 +26,7 @@ namespace API.Extensions
             services.AddSingleton(connectionProperties);
             // TODO: Remove Dummy class
             services.AddTransient<IApplicationMenuRepository, ApplicationRepositoryDummy>();
-            services.AddTransient<IApplicationUserRepository, ApplicationUserRepositoryDummy>();
+            services.AddTransient<IApplicationUserRepositoryDummy, ApplicationUserRepositoryDummy>();
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICostCenterRepository, CostCenterRepository>();
