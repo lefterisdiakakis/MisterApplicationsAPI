@@ -62,11 +62,12 @@ namespace Persistance.Implementations
             return res;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
         public bool AuthenticateViaLDAP(string username, string password)
         {
             bool isValid = false;
             // TODO: Replace "192.168.10.200" with actual AD
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "192.168.10.200"))
+            using (PrincipalContext pc = new(ContextType.Domain, "192.168.10.200"))
             {
                 isValid = pc.ValidateCredentials(username, password);
             }
@@ -78,7 +79,6 @@ namespace Persistance.Implementations
         {
             return version switch
             {
-                // TODO: change query string to use function
                 _ => @" SELECT ID, InsertDateTime, InsertUserID, UpdateDateTime, UpdateUserID, Username, Password, LastName, FirstName, Email, IPRestriction, LanguageID, UserTypeID, Active, Visible, Deleted, ResourceID, Description
                         FROM dbo.FN_SysApplicationUsers_Select(@ID, @Username, @Active, @Visible, @Deleted)",
             };

@@ -24,13 +24,15 @@ namespace Application.Core
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString())
             };
 
+            // TODO: get from client name from applicationProperties make a strong key and then pass it as parameter
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(applicationProperties.JWTKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                // TODO: make add hours to parameter
+                Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = creds
             };
 

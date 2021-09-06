@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.User
 {
+    // TODO: remove it or change it
     public class AuthenticateSso
     {
         public class Command : IRequest<Result<bool>>
@@ -32,7 +33,6 @@ namespace Application.User
 
                 //if (applicationUser == null)
                 //    return Result<bool>.NotAuthorized("Error username/password");
-                //// TODO: Code_Verifier remove it
                 ////applicationUser.Code_Verifier = Code_Challenge;
                 ////await _unitOfWork.ApplicationUser.UpdateUserAsync(applicationUser);
                 //return Result<bool>.Success(true);
