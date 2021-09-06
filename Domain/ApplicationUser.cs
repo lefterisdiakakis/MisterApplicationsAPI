@@ -8,7 +8,7 @@ namespace Domain
 {
     public record ApplicationUser
     {
-            public int ID { get; set; } //(int, not null)
+            public int Id { get; set; } //(int, not null)
             public DateTime InsertDateTime { get; set; } //(datetime, not null)
             public int InsertUserID { get; set; } //(int, not null)
             public DateTime UpdateDateTime { get; set; } //(datetime, not null)

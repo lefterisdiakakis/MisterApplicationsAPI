@@ -25,4 +25,12 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="RtelEncryptionLibrary">
+      <HintPath>RtelEncryptionLibrary.dll</HintPath>
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+
 </Project>

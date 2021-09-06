@@ -10,5 +10,9 @@ namespace Persistance.Interfaces
     public interface IApplicationUserRepository
     {
         Task<ApplicationUser> GetApplicationUser(ApplicationUser applicationUser);
+        Task<ApplicationUser> GetApplicationUserByUsername(string username);
+        bool AuthenticateViaLDAP(string username, string password);
+
+        
     }
 }
